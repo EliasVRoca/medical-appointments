@@ -13,8 +13,12 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    {{-- WireUI Scripts --}}
+    <wireui:scripts />
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
     {{-- Font Awesome --}}
     <script src="https://kit.fontawesome.com/c2722f8e10.js" crossorigin="anonymous"></script>
