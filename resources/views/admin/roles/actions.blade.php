@@ -6,7 +6,7 @@
         <i class="fas fa-edit"></i>
     </x-wireui-button>
     {{-- Delete Role --}}
-    <form action="{{route('admin.roles.destroy', $role)}}"
+    <form data-form="actionTableDelete" action="{{route('admin.roles.destroy', $role)}}"
         method="POST" class="inline">
         @csrf
         @method('DELETE')
