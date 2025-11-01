@@ -5,9 +5,9 @@
         'href' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Home',
+        'name' => 'Roles',
     ],
  ];
 @endphp
-<x-admin-layout :breadcrumbs="$breadcrumbs">
+<x-admin-layout title="CM | Roles" :breadcrumbs="$breadcrumbs">
 </x-admin-layout>
