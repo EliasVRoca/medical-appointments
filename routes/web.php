@@ -22,5 +22,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/dashboard', function () {
         return redirect('/admin');
     })->name('dashboard');
+});
+Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(fn() => require __DIR__.'/admin.php');
 });

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use \Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -89,6 +89,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        // dd($role);
         $execptions = ['Administrator', 'Doctor', 'Paciente', 'Recepcionista'];
         if (in_array($role->name, $execptions)) {
             return redirect()->route('admin.roles.index')->with('swal', [
@@ -97,6 +98,7 @@ class RoleController extends Controller
                 'text' => 'Este rol es esencial para el sistema y no puede ser eliminado.',
             ]);
         }
+        $role->update(['guard_name' => 'web']);
         $role->delete();
         return redirect()->route('admin.roles.index')->with('swal', [
             'icon' => 'success',
