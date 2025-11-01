@@ -23,6 +23,11 @@
     {{-- Font Awesome --}}
     <script src="https://kit.fontawesome.com/c2722f8e10.js" crossorigin="anonymous"></script>
 
+    {{-- Message Session Flash --}}
+    @if(session('swal'))
+    <meta name="swal" content='@json(session('swal'))'>
+    @endif
+
     <!-- Styles -->
     @livewireStyles
 </head>

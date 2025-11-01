@@ -35,7 +35,11 @@ class RoleController extends Controller
         // Formatear el nombre del rol para que la primera letra de cada palabra sea mayúscula
         $request->merge(['name' => ucwords(strtolower($request->name))]);
         Role::create($request->only('name'));
-        return redirect()->route('admin.roles.index')->with('success', 'Rol creado exitosamente.');
+        return redirect()->route('admin.roles.index')->with('swal', [
+            'icon' => 'success',
+            'title' => '¡Rol creado exitosamente!',
+            'text' => 'El nuevo rol ha sido creado.',
+        ]);
     }
 
     /**
