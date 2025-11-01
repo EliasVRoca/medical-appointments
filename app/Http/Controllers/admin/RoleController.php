@@ -63,7 +63,17 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:roles,name,' . $role->id,
+        ]);
+        // Formatear el nombre del rol para que la primera letra de cada palabra sea mayúscula
+        $request->merge(['name' => ucwords(strtolower($request->name))]);
+        $role->update($request->only('name'));
+        return redirect()->route('admin.roles.edit', $role)->with('swal', [
+            'icon' => 'success',
+            'title' => '¡Rol actualizado exitosamente!',
+            'text' => 'El rol ha sido actualizado.',
+        ]);
     }
 
     /**
