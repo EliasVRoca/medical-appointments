@@ -66,6 +66,14 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'required|unique:roles,name,' . $role->id,
         ]);
+        $execptions = ['Administrator', 'Doctor', 'Paciente', 'Recepcionista'];
+        if (in_array($role->name, $execptions)) {
+            return redirect()->route('admin.roles.edit', $role)->with('swal', [
+                'icon' => 'error',
+                'title' => '¡No se puede modificar este rol!',
+                'text' => 'Este rol es esencial para el sistema y no puede ser modificado.',
+            ]);
+        }
         // Formatear el nombre del rol para que la primera letra de cada palabra sea mayúscula
         $request->merge(['name' => ucwords(strtolower($request->name))]);
         $role->update($request->only('name'));
@@ -81,6 +89,19 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $execptions = ['Administrator', 'Doctor', 'Paciente', 'Recepcionista'];
+        if (in_array($role->name, $execptions)) {
+            return redirect()->route('admin.roles.index')->with('swal', [
+                'icon' => 'error',
+                'title' => '¡No se puede eliminar este rol!',
+                'text' => 'Este rol es esencial para el sistema y no puede ser eliminado.',
+            ]);
+        }
+        $role->delete();
+        return redirect()->route('admin.roles.index')->with('swal', [
+            'icon' => 'success',
+            'title' => '¡Rol eliminado exitosamente!',
+            'text' => 'El rol ha sido eliminado.',
+        ]);
     }
 }
