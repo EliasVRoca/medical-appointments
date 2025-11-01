@@ -29,7 +29,13 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:roles,name',
+        ]);
+        // Formatear el nombre del rol para que la primera letra de cada palabra sea mayúscula
+        $request->merge(['name' => ucwords(strtolower($request->name))]);
+        Role::create($request->only('name'));
+        return redirect()->route('admin.roles.index')->with('success', 'Rol creado exitosamente.');
     }
 
     /**
