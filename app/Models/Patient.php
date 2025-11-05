@@ -20,4 +20,12 @@ class Patient extends Model
         'emergency_contact_phone',
         'emergency_contact_relationship',
     ];
+    // Relation with User
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    // Relation with BloodType
+    public function bloodType(){
+        return $this->belongsTo(BloodType::class);
+    }
 }

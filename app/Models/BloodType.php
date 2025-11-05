@@ -9,4 +9,9 @@ class BloodType extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    // Relation with Patient
+    public function patients(){
+        return $this->hasMany(Patient::class);
+    }
 }

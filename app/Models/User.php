@@ -63,4 +63,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    // Relation with Patient
+    public function patient(){
+        return $this->hasOne(Patient::class);
+    }
 }

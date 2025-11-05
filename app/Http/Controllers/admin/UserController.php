@@ -50,6 +50,18 @@ class UserController extends Controller
         ]);
         $rol = Role::find($request->role);
         $user->assignRole($rol->name);
+
+        if ($rol->name == 'Paciente') {
+            // Create associated Patient record
+            $user->patient()->create([]);
+
+            return redirect()->route('admin.patients.edit', $user->patient->id)->with('swal', [
+                'icon' => 'success',
+                'title' => 'Usuario y Paciente creados exitosamente',
+                'text' => 'El usuario y su perfil de paciente han sido creados correctamente. Por favor, complete la información del paciente.',
+            ]);
+        }
+
         return redirect()->route('admin.users.index')->with('swal', [
             'icon' => 'success',
             'title' => 'Usuario creado exitosamente',
