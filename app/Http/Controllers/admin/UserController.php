@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -21,7 +22,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -29,7 +31,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'dni' => 'required|string|unique:users',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'role' => 'required|string|exists:roles,id',
+        ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'dni' => $request->dni,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+        $rol = Role::find($request->role);
+        $user->assignRole($rol->name);
+        return redirect()->route('admin.users.index')->with('swal', [
+            'icon' => 'success',
+            'title' => 'Usuario creado exitosamente',
+            'text' => 'El usuario ha sido creado correctamente.',
+        ]);
     }
 
     /**
@@ -45,7 +70,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -53,7 +79,31 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'dni' => 'required|string|unique:users,dni,' . $user->id,
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'role' => 'required|string|exists:roles,id',
+        ]);
+        
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'dni' => $request->dni,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+
+        $rol = Role::find($request->role);
+        $user->syncRoles([$rol->name]);
+
+        return redirect()->route('admin.users.index')->with('swal', [
+            'icon' => 'success',
+            'title' => 'Usuario actualizado exitosamente',
+            'text' => 'Los datos del usuario han sido actualizados correctamente.',
+        ]);
     }
 
     /**
@@ -61,6 +111,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('admin.users.index')->with('swal', [
+            'icon' => 'success',
+            'title' => 'Usuario eliminado exitosamente',
+            'text' => 'El usuario ha sido eliminado correctamente.',
+        ]);
     }
 }

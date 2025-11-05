@@ -28,6 +28,64 @@
                     value="{{ old('name') }}"
                     required
                 />
+                <x-wireui-input
+                    name="email"
+                    type="email"
+                    blue
+                    label="Correo Electrónico"
+                    placeholder="Ingrese el correo electrónico del usuario"
+                    class="w-full mb-4"
+                    value="{{ old('email') }}"
+                    required
+                />
+                {{-- dni, phone address, role --}}
+                <x-wireui-input
+                    name="dni"
+                    blue
+                    label="DNI"
+                    placeholder="Ingrese el DNI del usuario"
+                    class="w-full mb-4"
+                    value="{{ old('dni') }}"
+                    required
+                />
+                <x-wireui-input
+                    name="phone"
+                    blue
+                    label="Teléfono"
+                    placeholder="Ingrese el teléfono del usuario"
+                    class="w-full mb-4"
+                    value="{{ old('phone') }}"
+                    required
+                />
+                <x-wireui-input
+                    name="address"
+                    blue
+                    label="Dirección"
+                    placeholder="Ingrese la dirección del usuario"
+                    class="w-full mb-4"
+                    value="{{ old('address') }}"
+                    required
+                />
+
+                <x-wireui-select
+                    name="role"
+                    label="Rol"
+                    placeholder="Seleccione un rol"
+                    class="w-full mb-4"
+                    :options="$roles"
+                    option-label="name" option-value="id"
+                    required
+                />
+
+                <x-wireui-input
+                    name="password"
+                    type="password"
+                    blue
+                    label="Contraseña"
+                    placeholder="Ingrese la contraseña del usuario"
+                    class="w-full mb-4"
+                    required
+                />
                 <div class="flex justify-end">
                     <x-wireui-button type="submit" blue>
                         <i class="fas fa-save mr-2"></i> Guardar
