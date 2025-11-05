@@ -76,7 +76,3 @@ Este proyecto es una aplicación web desarrollada en Laravel para la gestión de
 - Jetstream, Fortify, Sanctum
 - Livewire, WireUI
 - TailwindCSS, Vite
-
-## Licencia
-
-Este proyecto está bajo la licencia MIT.

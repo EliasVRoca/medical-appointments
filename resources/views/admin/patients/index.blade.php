@@ -13,7 +13,7 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-6">
             <h1 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Gestión de Pacientes</h1>
-            {{-- @livewire('admin.datatables.patient-table') --}}
+            @livewire('admin.datatables.patient-table')
         </div>
     </div>
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
