@@ -21,7 +21,7 @@
                     <i class="fas fa-plus mr-2"></i> Crear Usuario
                 </x-wireui-button>
             </x-slot>
-            {{-- @livewire('admin.datatables.user-table') --}}
+            @livewire('admin.datatables.user-table')
         </div>
     </div>
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
